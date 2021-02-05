@@ -1,17 +1,16 @@
-import React, { useState, useContext} from 'react'
+import React, { useState, useContext } from 'react'
 import { EmailComponent } from '../components/email.component'
-import { NameComponent } from '../components/name.component'
 import { PasswordComponent } from '../components/password.component'
+import { Link } from 'react-router-dom'
 import { useHttp } from '../hooks/http.hook'
 import { AuthContext } from '../context/auth.context'
 
-export const RegisterPage = () => {
+export const LoginPage = () => {
 
     const { loading, request, error, clearError } = useHttp()
     const auth = useContext(AuthContext)
 
     const [form, setForm] = useState({
-        name: '',
         email: '',
         password: '',
     })
@@ -23,10 +22,10 @@ export const RegisterPage = () => {
         })
     }
 
-    const registerHandler = async () => {
+    const loginHandler = async () => {
         try
         {
-            const data = await request("/api/auth/register", 'POST', {...form})
+            const data = await request("/api/auth/login", 'POST', {...form})
             auth.login(data.token, data.userId)
         }
         catch {}
@@ -37,9 +36,8 @@ export const RegisterPage = () => {
             <div className="form-signin">
                 <form>
                     <img className="mb-4 picture" src="/static/media/bootstrap-logo.b91717f3.svg" alt="" width="72" height="57"/>
-                    <h1 className="h3 mb-3 fw-normal">Регистрация</h1>
+                    <h1 className="h3 mb-3 fw-normal">Войти</h1>
 
-                    <NameComponent changeForm={changeForm}/>
                     <EmailComponent changeForm={changeForm}/>
                     <PasswordComponent changeForm={changeForm}/>
 
@@ -49,7 +47,10 @@ export const RegisterPage = () => {
                         </label>
                     </div>
 
-                    <button className="w-100 btn btn-lg btn-primary" type="button" onClick={registerHandler}>Зарегистрироваться</button>
+                    <button className="w-100 btn btn-lg btn-primary" type="button" onClick={loginHandler}>Войти</button>
+                    <Link to="/register">
+                        <button type="button" className="btn btn-link">Регистрация</button>
+                    </Link>
                     <p className="mt-3 mb-3 text-muted">©gbophuk0s 2021</p>
 
                 </form>

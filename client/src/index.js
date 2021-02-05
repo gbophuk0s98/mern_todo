@@ -1,12 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './form-signin.css'
-import {RegisterPage} from './pages/RegisterPage'
+import App from './App'
 
-const App = () => {
-  return(
-    <RegisterPage />
-  )
-}
-
-ReactDOM.render(<App/>, document.getElementById('root'))
+ReactDOM.render(
+	<React.StrictMode>
+		<App/>
+	</React.StrictMode>, 
+	document.getElementById('root')
+	)

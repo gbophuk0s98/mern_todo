@@ -27,6 +27,7 @@
   "homepage": "https://github.com/gbophuk0s98/mern_todo#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "concurrently": "^5.3.0",
     "express": "^4.17.1",
     "express-validator": "^6.9.2",
     "jsonwebtoken": "^8.5.1",
