@@ -7,8 +7,8 @@
     "build": "cd client && npm run build",
     "client:install": "npm install --prefix client",
     "client:build": "npm run build --prefix client",
-    "heroku-postbuild": "",
-    "server": "nodemon server.js",
+    "heroku-postbuild": "npm run install-client && npm run build",
+    "server": "node server.js",
     "client": "npm run start --prefix client",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"npm run server\" \"npm run client\""
