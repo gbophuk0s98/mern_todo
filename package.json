@@ -1,0 +1,33 @@
+{
+  "name": "mern_todo",
+  "version": "1.0.0",
+  "description": "mern todo app",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbophuk0s98/mern_todo.git"
+  },
+  "keywords": [
+    "MongoDb",
+    "Express",
+    "React",
+    "Node"
+  ],
+  "author": "Pavel Surta <surta.iit1@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gbophuk0s98/mern_todo/issues"
+  },
+  "homepage": "https://github.com/gbophuk0s98/mern_todo#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "express-validator": "^6.9.2",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.7"
+  }
+}
