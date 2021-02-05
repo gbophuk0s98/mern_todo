@@ -13,6 +13,7 @@ generateToken = (userId) => {
     )
 }
 
+
 router.post(
     '/register', 
     [
@@ -27,6 +28,7 @@ router.post(
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array(), message: 'Ошибки в форме' })
 
             const { name, email, password } = req.body
+            console.log(`req.body: ${{req}}`)
             
             const candidate = await User.findOne({ email })
             if (candidate) return res.status(200).json({ message: 'Такой пользователь уже существует' })
