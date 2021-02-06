@@ -2,7 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 const path = require('path')
-const PORT = 8080 || process.env.PORT
+const PORT = process.env.PORT || 8080
 
 app.use(express.json({ extended: true }))
 
