@@ -1,25 +1,11 @@
-import React, { useState, useContext } from 'react'
+import React from 'react'
 import './add-panel.css'
-import { useHttp } from '../../hooks/http.hook'
-import { AuthContext } from '../../context/auth.context'
 
-export const AddPanel = ({ todo, addTodo, createTodo}) => {
-
-    const { request, loading, error, clearError } = useHttp()
-    const { token } = useContext(AuthContext)
+export const AddPanel = ({ changeTodo, createTodo}) => {
 
     const clearInput = () => {
         document.getElementById("textInput").value = ''
     }
-
-    const create = () => {
-        createTodo()
-    }
-
-    const changeSearch = (event) => {
-        addTodo(event.target.name, event.target.value)
-    }
-
 
     return(
         <div className="top-panel d-flex">
@@ -28,13 +14,15 @@ export const AddPanel = ({ todo, addTodo, createTodo}) => {
                 className="search-input"
                 placeholder="add todo..."
                 id="textInput"
-                onChange={changeSearch}
+                onChange={(e) => {
+                    changeTodo(e.target.name, e.target.value)
+                }}
             />
             <button 
                 type="button"
                 className="btn btn-primary"
                 onClick={() => {
-                    create()
+                    createTodo()
                     clearInput()
                 }}
             >

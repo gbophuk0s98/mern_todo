@@ -1,40 +1,31 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { useHttp } from '../../hooks/http.hook'
 import { AuthContext } from '../../context/auth.context'
 
 import './todo-list-item.css'
 
-export const TodoListItem = ({ _id, text, done, important}) =>{
+export const TodoListItem = ({ text, done, important, onDeleted, onToggleDone, onToggleImportant}) =>{
 
-    const { request } = useHttp()
-    const { token } = useContext(AuthContext)
+    const [classes, setClasses] = useState('')
 
-    const onLabelClick = () => {
-        // this.props.onToggleDone()
+    const addClasses = () => {
+        let clazz = 'todo-list-item'
+        if (done) clazz += ' done'
+        if (important) clazz += ' important'
+        setClasses(clazz)
     }
 
-    const onExclamationClick = () => {
-        // this.props.onToggleImportant()
-    }
+    useEffect(() => {
+        addClasses()
+    }, [addClasses])
 
-        // const { text, onDeleted, done, important } = this.props
-
-        let classes = 'todo-list-item'
-        // if (done) classes += ' done'
-        // if (important) classes += ' important'
-
-    const deleteHandler = async () => {
-        await request('/api/todos/delete', 'DELETE', {_id}, {
-            Authorization: `Bearer ${token}`
-        })
-    }
 
     return (
         <span className={classes}>
 
             <span
                 className="todo-list-item-label"
-                onClick={onLabelClick}
+                onClick={onToggleDone}
             >
                 {text}
             </span>
@@ -42,7 +33,7 @@ export const TodoListItem = ({ _id, text, done, important}) =>{
             <button 
                 type="button"
                 className="btn btn-outline-success btn-sm"
-                onClick={onExclamationClick}
+                onClick={onToggleImportant}
             >
                 <i className="fa fa-exclamation" />
             </button>
@@ -50,7 +41,7 @@ export const TodoListItem = ({ _id, text, done, important}) =>{
             <button 
                 type="button"
                 className="btn btn-outline-danger btn-sm"
-                onClick={deleteHandler}
+                onClick={onDeleted}
             >
                 <i className="fa fa-trash-o" />
             </button>
