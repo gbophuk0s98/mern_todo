@@ -17,7 +17,7 @@ export const ToDosPage = () => {
         text: '', important: false, done: false,
     })
     const [term, setTerm] = useState('')
-    const [filterValue, setFilterValue] = useState('done')
+    const [filterValue, setFilterValue] = useState('all')
     const [countToDo, setCountToDo] = useState(0)
     const [countDone, setCountDone] = useState(0)
     const [visibleItems, setVisibleItems] = useState([])
