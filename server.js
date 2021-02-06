@@ -1,9 +1,17 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
-const PORT = 8080
+const path = require('path')
+const PORT = 8080 || process.env.PORT
 
 app.use(express.json({ extended: true }))
+
+app.use('/', express.static(path.join(__dirname, 'client', 'build')))
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+})
+
 app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/todos', require('./routes/todos.routes'))
 
