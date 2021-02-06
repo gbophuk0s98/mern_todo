@@ -20,8 +20,6 @@ export const useHttp = () => {
             if (!response.ok) throw new Error(data.message || 'Что-то пошло не так')
 
             setLoading(false)
-
-            console.log('end')
             return data
         }
         catch (e)
