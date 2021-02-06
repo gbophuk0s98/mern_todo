@@ -6,6 +6,9 @@ const PORT = process.env.PORT || 8080
 
 app.use(express.json({ extended: true }))
 
+app.use('/api/auth', require('./routes/auth.routes'))
+app.use('/api/todos', require('./routes/todos.routes'))
+
 if (process.env.NODE_ENV == 'production'){
     app.use('/', express.static(path.join(__dirname, 'client', 'build')))
 
@@ -13,9 +16,6 @@ if (process.env.NODE_ENV == 'production'){
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
     })    
 }
-
-app.use('/api/auth', require('./routes/auth.routes'))
-app.use('/api/todos', require('./routes/todos.routes'))
 
 async function start(){
     try
