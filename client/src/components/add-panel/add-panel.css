@@ -3,3 +3,7 @@
     flex-grow: 1;
     margin-right: 3px;
 }
+
+button > span {
+    font-family: Comic Sans MS, Comic Sans, cursive;
+}

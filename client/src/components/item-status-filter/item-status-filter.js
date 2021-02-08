@@ -11,14 +11,14 @@ export const ItemStatusFilter = ({ filter, onFilterChange }) => {
 
     const btns = buttons.map(({ name, label }) => {
         const isActive = filter === name
-        const btnClass =  isActive ? "btn-info" : "btn-outline-secondary"
+        const btnClass =  isActive ? "btn-danger" : "btn-secondary"
         return (
             <button type="button"
                 className={`btn ${btnClass}`} 
                 key={name}
                 onClick={() => {onFilterChange(name)}}
             >
-                {label}
+                <span>{label}</span>
             </button>
         )
     })

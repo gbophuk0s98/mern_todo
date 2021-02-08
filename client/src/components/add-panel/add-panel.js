@@ -26,7 +26,7 @@ export const AddPanel = ({ changeTodo, createTodo}) => {
                     clearInput()
                 }}
             >
-                Добавить
+                <span>Добавить</span>
             </button>
         </div>
     )

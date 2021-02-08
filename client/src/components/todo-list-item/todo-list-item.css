@@ -12,6 +12,7 @@
     line-height: 35px;
     cursor: pointer;
     user-select: none;
+    font-family: Comic Sans MS, Comic Sans, cursive;
 }
 
 .todo-list-item.done .todo-list-item-label{
