@@ -9,7 +9,7 @@ generateToken = (userId) => {
     return jwt.sign(
         { userId: userId },
         'gbophuk0s98',
-        { expiresIn: '1h' },
+        { expiresIn: '23h' },
     )
 }
 

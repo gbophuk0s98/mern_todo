@@ -3,12 +3,14 @@ import { Switch, Redirect, Route } from 'react-router-dom'
 import { LoginPage } from './pages/LoginPage'
 import { RegisterPage } from './pages/RegisterPage'
 import { ToDosPage } from './pages/ToDosPage'
+import { Navbar } from './components/navbar/navbar.component'
 
 export const useRoutes = isAuthenticated => {
     if (isAuthenticated){
         return(
             <Switch>
                 <Route path="/todos" >
+                    <Navbar/>
                     <ToDosPage/>
                 </Route>
                 <Redirect from="/" to="/todos"/>

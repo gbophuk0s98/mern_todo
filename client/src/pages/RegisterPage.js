@@ -1,4 +1,5 @@
 import React, { useState, useContext} from 'react'
+import { Link } from 'react-router-dom'
 import { ParentComponent } from '../components/auth.components/parent.component'
 import { useHttp } from '../hooks/http.hook'
 import { AuthContext } from '../context/auth.context'
@@ -49,6 +50,9 @@ export const RegisterPage = () => {
                     </div>
 
                     <button className="w-100 btn btn-lg btn-primary" type="button" onClick={registerHandler}>Зарегистрироваться</button>
+                    <Link to="/login">
+                            <button type="button" className="btn btn-link">Авторизоваться</button>
+                    </Link>
                     <p className="mt-3 mb-3 text-muted">©gbophuk0s 2021</p>
 
                 </form>
