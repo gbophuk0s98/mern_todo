@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
-import { EmailComponent } from '../components/email.component'
-import { PasswordComponent } from '../components/password.component'
+import { PasswordComponent } from '../components/password/password.component'
+import { EmailComponent } from '../components/email/email.component'
 import { Link } from 'react-router-dom'
 import { useHttp } from '../hooks/http.hook'
 import { AuthContext } from '../context/auth.context'
