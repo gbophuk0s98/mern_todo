@@ -19,7 +19,6 @@ export const LoginPage = () => {
             ...form, 
             [event.target.name]: event.target.value
         })
-        console.log(form)
     }
 
     const loginHandler = async () => {

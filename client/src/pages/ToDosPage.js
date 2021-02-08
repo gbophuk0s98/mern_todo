@@ -21,7 +21,7 @@ export const ToDosPage = () => {
     const [filterResult, setFilterResult] = useState([])
 
     const { request } = useHttp()
-    const { token } = useContext(AuthContext)
+    const { token, userId } = useContext(AuthContext)
 
 
     const getLenghtToDo = () => {
@@ -119,7 +119,8 @@ export const ToDosPage = () => {
         try
         {
             const fetched = await request('/api/todos/all', 'GET', null, {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
+                User: `Id ${userId}`
             })
             setTodo(fetched)
             setVisibleItems(fetched)

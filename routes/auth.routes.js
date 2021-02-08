@@ -1,14 +1,15 @@
 const { Router } = require('express')
 const { check, validationResult } = require('express-validator')
 const User = require('../models/User')
+const Token = require('../models/Token')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const router = Router()
 
-generateToken = (userId) => {
-    return jwt.sign(
+generateToken = (userId, secretKey) => {
+    return token = jwt.sign(
         { userId: userId },
-        'gbophuk0s98',
+        'gbophuk0s98' + secretKey,
         { expiresIn: '23h' },
     )
 }
@@ -28,7 +29,6 @@ router.post(
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array(), message: 'Ошибки в форме' })
 
             const { name, email, password } = req.body
-            console.log(`req.body: ${{req}}`)
             
             const candidate = await User.findOne({ email })
             if (candidate) return res.status(200).json({ message: 'Такой пользователь уже существует' })
@@ -38,7 +38,8 @@ router.post(
             const user = new User({ name, email, password: hashedPassword })
             await user.save()
 
-            const token = generateToken(user.id)
+            const secretKey = Date.now().toString()
+            const token = generateToken(user.id, secretKey)
 
             await res.status(201).json({ token: token, userId: user.id, message: 'Пользователь создан' })
 
@@ -69,7 +70,10 @@ router.post(
             const isMatch = await bcrypt.compare(password, user.password)
             if (!isMatch) return res.status(400).json({ message: 'Неверный пароль' })
 
-            const token = generateToken(user.id)
+            const secretKey = Date.now().toString()
+            const token = generateToken(user.id, secretKey)
+
+            await new Token({ token, secretKey, owner: user.id }).save()
 
             await res.status(201).json({ token: token, userId: user.id, message: 'Вход успешно выполнен' })
 
