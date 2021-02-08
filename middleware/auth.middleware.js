@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
     {
         const token = req.headers.authorization.split(' ')[1]
         const userId = req.headers.user.split(' ')[1]
-
+ 
         if (!token) return res.status(401).json({ message: 'Нет авторизации '})
 
         const tokenDB = await getDBToken(userId)
