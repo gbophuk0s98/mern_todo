@@ -1,9 +1,8 @@
 import React, { useState, useContext } from 'react'
-import { PasswordComponent } from '../components/password/password.component'
-import { EmailComponent } from '../components/email/email.component'
 import { Link } from 'react-router-dom'
 import { useHttp } from '../hooks/http.hook'
 import { AuthContext } from '../context/auth.context'
+import { ParentComponent } from '../components/auth.components/parent.component'
 
 export const LoginPage = () => {
 
@@ -20,6 +19,7 @@ export const LoginPage = () => {
             ...form, 
             [event.target.name]: event.target.value
         })
+        console.log(form)
     }
 
     const loginHandler = async () => {
@@ -32,26 +32,32 @@ export const LoginPage = () => {
     }
 
     return(
-        <div className="form-container text-center">
+        <div className="form-container">
             <div className="form-signin">
                 <form>
-                    <img className="mb-4 picture" src="favicon.png" alt="" width="80" height="80"/>
-                    <h1 className="h3 mb-3 fw-normal">Авторизация</h1>
-
-                    <EmailComponent changeForm={changeForm}/>
-                    <PasswordComponent changeForm={changeForm}/>
-
-                    <div className="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" value="remember-me"/> Запомнить меня
-                        </label>
+                    <div className="text-center">
+                        <img className="mb-3 picture" src="favicon.png" alt="" width="80" height="80"/>
+                        <h1 className="h3 mb-3 fw-normal">Авторизация</h1>
+                    </div>
+                    <ParentComponent
+                        changeForm={changeForm}
+                        mode="login"
+                    />
+                    <div className="text-center">
+                        <div className="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" value="remember-me"/> Запомнить меня
+                            </label>
+                        </div>
                     </div>
 
                     <button className="w-100 btn btn-lg btn-primary" type="button" onClick={loginHandler}>Войти</button>
-                    <Link to="/register">
-                        <button type="button" className="btn btn-link">Регистрация</button>
-                    </Link>
-                    <p className="mt-3 mb-3 text-muted">©gbophuk0s 2021</p>
+                    <div className="text-center">
+                        <Link to="/register">
+                            <button type="button" className="btn btn-link">Регистрация</button>
+                        </Link>
+                        <p className="mt-3 mb-3 text-muted">©gbophuk0s 2021</p>
+                    </div>
 
                 </form>
             </div>

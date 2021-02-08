@@ -9,7 +9,7 @@ export const TodoListItem = ({ text, done, important, onDeleted, onToggleDone, o
     const [classes, setClasses] = useState('')
 
     const addClasses = () => {
-        let clazz = 'todo-list-item'
+        let clazz = 'todo-list-item d-flex justify-content-between'
         if (done) clazz += ' done'
         if (important) clazz += ' important'
         setClasses(clazz)
@@ -22,14 +22,16 @@ export const TodoListItem = ({ text, done, important, onDeleted, onToggleDone, o
 
     return (
         <span className={classes}>
-
+            <div>
             <span
                 className="todo-list-item-label"
                 onClick={onToggleDone}
             >
                 {text}
             </span>
+            </div>
 
+            <div>
             <button 
                 type="button"
                 className="btn btn-outline-success btn-sm"
@@ -47,6 +49,7 @@ export const TodoListItem = ({ text, done, important, onDeleted, onToggleDone, o
             >
                 <i className="fa fa-trash-o" />
             </button>
+            </div>
 
         </span>
     )

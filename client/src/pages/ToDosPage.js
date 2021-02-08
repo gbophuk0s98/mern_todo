@@ -142,8 +142,8 @@ export const ToDosPage = () => {
 
 
     return(
-        <div className="container m-auto">
-        <div className="mw-500">
+        <div className="">
+        <div className="container m-auto w-50">
             <AppHeader 
                 toDo={countToDo} 
                 done={countDone}

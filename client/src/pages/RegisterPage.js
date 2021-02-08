@@ -1,7 +1,5 @@
 import React, { useState, useContext} from 'react'
-import { EmailComponent } from '../components/email/email.component'
-import { NameComponent } from '../components/name/name.component'
-import { PasswordComponent } from '../components/password/password.component'
+import { ParentComponent } from '../components/auth.components/parent.component'
 import { useHttp } from '../hooks/http.hook'
 import { AuthContext } from '../context/auth.context'
 
@@ -33,15 +31,16 @@ export const RegisterPage = () => {
     }
 
     return(
-        <div className="form-container text-center">
+        <div className="form-container text-center bg-dark">
             <div className="form-signin">
                 <form>
-                    <img className="mb-4 picture" src="favicon.png" alt="" width="80" height="80"/>
+                    <img className="mb-3 picture" src="favicon.png" alt="" width="80" height="80"/>
                     <h1 className="h3 mb-3 fw-normal">Регистрация</h1>
 
-                    <NameComponent changeForm={changeForm}/>
-                    <EmailComponent changeForm={changeForm}/>
-                    <PasswordComponent changeForm={changeForm}/>
+                    <ParentComponent
+                        changeForm={changeForm}
+                        mode="register"
+                    />
 
                     <div className="checkbox mb-3">
                         <label>

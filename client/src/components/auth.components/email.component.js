@@ -1,11 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { styles }  from './styles'
 
 export const EmailComponent = ({ changeForm }) => {
-        
+
     return(
-        <div>
-            <label htmlFor="inputEmail" className="visually-hidden">Email address</label>
+        <div className="d-flex d-flex align-items-center mb-2">
+            <label style={styles.TextStyles} className="email-component" htmlFor="inputEmail" className="visually">Почта</label>
             <input 
+                style={styles.InputStyles}
                 name="email"
                 type="email"
                 id="inputEmail"

@@ -10,7 +10,7 @@ export const ToDoList = ({todos, onDeleted, onToggleDone, onToggleImportant}) =>
                 todos.map(item => {
 
                     return(
-                        <li key={item._id} className="list-group-item d-flex">
+                        <li key={item._id} className="list-group-item bg-dark">
                             <TodoListItem 
                                 { ...item }
                                 onDeleted={() => onDeleted(item._id)}
