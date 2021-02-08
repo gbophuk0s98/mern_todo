@@ -9,7 +9,7 @@ export const useAuth = () => {
     const [userId, setUserId] = useState()
     const { request } = useHttp()
 
-    const login = useCallback(async (jwtToken, id) => {
+    const login = useCallback((jwtToken, id) => {
         
         setUserId(id)
         setToken(jwtToken)
