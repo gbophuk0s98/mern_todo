@@ -1,7 +1,7 @@
 import React, { useState, useContext} from 'react'
-import { EmailComponent } from '../components/email.component'
-import { NameComponent } from '../components/name.component'
-import { PasswordComponent } from '../components/password.component'
+import { EmailComponent } from '../components/email/email.component'
+import { NameComponent } from '../components/name/name.component'
+import { PasswordComponent } from '../components/password/password.component'
 import { useHttp } from '../hooks/http.hook'
 import { AuthContext } from '../context/auth.context'
 

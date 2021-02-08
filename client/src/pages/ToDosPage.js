@@ -9,9 +9,6 @@ import { AuthContext } from '../context/auth.context'
 
 export const ToDosPage = () => {
     
-    const { request } = useHttp()
-    const { token } = useContext(AuthContext)
-
     const [todo, setTodo] = useState([])
     const [note, setNote] = useState({
         text: '', important: false, done: false,
@@ -23,6 +20,8 @@ export const ToDosPage = () => {
     const [visibleItems, setVisibleItems] = useState([])
     const [filterResult, setFilterResult] = useState([])
 
+    const { request } = useHttp()
+    const { token } = useContext(AuthContext)
 
 
     const getLenghtToDo = () => {
@@ -91,10 +90,15 @@ export const ToDosPage = () => {
     }
 
     const deleteHandler = async (_id) => {
-        await request('/api/todos/delete', 'DELETE', {_id}, {
-            Authorization: `Bearer ${token}`
-        })
-        fetchedTodos()
+        try
+        {
+            await request('/api/todos/delete', 'DELETE', {_id}, {
+                Authorization: `Bearer ${token}`
+            })
+            fetchedTodos()
+        }
+        catch (e) {}
+        
     }
 
     const changeDone = async (done, _id) => {
@@ -124,13 +128,12 @@ export const ToDosPage = () => {
     }, [token, request])
 
 
-    useEffect(async () => {
-        await fetchedTodos()
+    useEffect(() => {
+        fetchedTodos()
     }, [fetchedTodos])
     
-    useEffect(async () => {
+    useEffect(() => {
         setCountToDo(getLenghtToDo())
-        
     }, [getLenghtToDo, setCountToDo])
 
     useEffect(() => {

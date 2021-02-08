@@ -4,9 +4,9 @@ import './item-status-filter.css'
 export const ItemStatusFilter = ({ filter, onFilterChange }) => {
 
     const [buttons, setButtons] = useState([
-        { name: 'all', label: 'All', },
-        { name: 'active', label: 'Active', },
-        { name: 'done', label: 'Done', }
+        { name: 'all', label: 'Все', },
+        { name: 'active', label: 'Активные', },
+        { name: 'done', label: 'Выполненные', }
     ])
 
     const btns = buttons.map(({ name, label }) => {

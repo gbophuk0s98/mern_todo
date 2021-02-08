@@ -33,6 +33,7 @@ export const TodoListItem = ({ text, done, important, onDeleted, onToggleDone, o
             <button 
                 type="button"
                 className="btn btn-outline-success btn-sm"
+                data-tooltip="Пометить как важное"
                 onClick={onToggleImportant}
             >
                 <i className="fa fa-exclamation" />
@@ -41,6 +42,7 @@ export const TodoListItem = ({ text, done, important, onDeleted, onToggleDone, o
             <button 
                 type="button"
                 className="btn btn-outline-danger btn-sm"
+                data-tooltip="Удалить"
                 onClick={onDeleted}
             >
                 <i className="fa fa-trash-o" />

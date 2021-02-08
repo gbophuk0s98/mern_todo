@@ -12,7 +12,7 @@ export const AddPanel = ({ changeTodo, createTodo}) => {
             <input
                 name="text"
                 className="search-input"
-                placeholder="add todo..."
+                placeholder="Введите задачу..."
                 id="textInput"
                 onChange={(e) => {
                     changeTodo(e.target.name, e.target.value)
@@ -26,7 +26,7 @@ export const AddPanel = ({ changeTodo, createTodo}) => {
                     clearInput()
                 }}
             >
-                Add todo
+                Добавить
             </button>
         </div>
     )
