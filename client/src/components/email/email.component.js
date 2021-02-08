@@ -10,7 +10,7 @@ export const EmailComponent = ({ changeForm }) => {
                 type="email"
                 id="inputEmail"
                 className="form-control"
-                placeholder="pavel.surta@mail.ru"
+                placeholder="Введите почту"
                 onChange={changeForm}
                 />
         </div>

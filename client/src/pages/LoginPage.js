@@ -36,7 +36,7 @@ export const LoginPage = () => {
             <div className="form-signin">
                 <form>
                     <img className="mb-4 picture" src="/static/media/bootstrap-logo.b91717f3.svg" alt="" width="72" height="57"/>
-                    <h1 className="h3 mb-3 fw-normal">Войти</h1>
+                    <h1 className="h3 mb-3 fw-normal">Авторизация</h1>
 
                     <EmailComponent changeForm={changeForm}/>
                     <PasswordComponent changeForm={changeForm}/>
