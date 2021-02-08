@@ -14,7 +14,6 @@ generateToken = (userId, secretKey) => {
     )
 }
 
-
 router.post(
     '/register', 
     [
@@ -83,5 +82,17 @@ router.post(
             res.status(500).json({ message: 'Внутренняя ошибка сервера', devMessage: `${e.message}` })
         }
     })
+
+router.delete('/deleteToken', async (req, res) => {
+    try
+    {
+        await Token.deleteOne({ token: req.body.jwtToken, owner: req.body.id })
+        res.status(200).json({ message: 'Успешно удалено!' })
+    }
+    catch (e)
+    {
+        res.status(500).json({ message: 'Внутрення ошибка сервера', devMessage: `${e.message}` })
+    }
+})
 
 module.exports = router

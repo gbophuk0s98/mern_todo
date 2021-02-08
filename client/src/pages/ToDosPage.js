@@ -18,7 +18,6 @@ export const ToDosPage = () => {
     const [countToDo, setCountToDo] = useState(0)
     const [countDone, setCountDone] = useState(0)
     const [visibleItems, setVisibleItems] = useState([])
-    const [filterResult, setFilterResult] = useState([])
 
     const { request } = useHttp()
     const { token, userId } = useContext(AuthContext)
@@ -61,14 +60,12 @@ export const ToDosPage = () => {
 
     const onSearchChange = (term) => {
         setTerm(term)
-        if (!term) setVisibleItems(todo)
-        else setVisibleItems(search(todo, term))
+        setVisibleItems(filter(search(todo, term), filterValue))
     }
 
-    const onFilterChange = async (filterValue) => {
+    const onFilterChange = (filterValue) => {
         setFilterValue(filterValue)
-        await filter(filterValue)
-        setVisibleItems(filter(search(todo, term), filterValue))
+        setVisibleItems(filter((search(todo, term)), filterValue))
     }
 
     const onChangeNewTodo = (key, value) => {
@@ -82,8 +79,10 @@ export const ToDosPage = () => {
         try
         {
             await request('api/todos/create', 'POST', { ...note }, {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
+                User: `Id ${userId}`
             })
+            setFilterValue('all')
             fetchedTodos()
         }
         catch (e) {}
@@ -93,7 +92,8 @@ export const ToDosPage = () => {
         try
         {
             await request('/api/todos/delete', 'DELETE', {_id}, {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
+                User: `Id ${userId}`
             })
             fetchedTodos()
         }
@@ -103,14 +103,16 @@ export const ToDosPage = () => {
 
     const changeDone = async (done, _id) => {
         await request('/api/todos/updateDone', 'PUT', {done, _id}, {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            User: `Id ${userId}`
         })
         fetchedTodos()
     }
 
     const changeImportant = async (important, _id) => {
         await request('/api/todos/updateImportant', 'PUT', {important, _id}, {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            User: `Id ${userId}`
         })
         fetchedTodos()
     }
@@ -126,8 +128,7 @@ export const ToDosPage = () => {
             setVisibleItems(fetched)
         }
         catch (e) {}
-    }, [token, request])
-
+    }, [token, userId, request])
 
     useEffect(() => {
         fetchedTodos()

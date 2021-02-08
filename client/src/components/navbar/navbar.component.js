@@ -9,7 +9,7 @@ export const Navbar = () => {
 
     const logoutHandler = event => {
         event.preventDefault()
-        auth.logout()
+        auth.logout(auth.token, auth.userId)
     }
 
     return(

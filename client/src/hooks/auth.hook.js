@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from 'react'
+import { useHttp } from './http.hook'
 
 const storageName = 'userData'
 
@@ -6,11 +7,12 @@ export const useAuth = () => {
 
     const [token, setToken] = useState()
     const [userId, setUserId] = useState()
+    const { request } = useHttp()
 
-    const login = useCallback((jwtToken, id) => {
+    const login = useCallback(async (jwtToken, id) => {
         
-        setToken(jwtToken)
         setUserId(id)
+        setToken(jwtToken)
 
         localStorage.setItem(storageName, JSON.stringify({
             token: jwtToken, userId: id
@@ -21,6 +23,11 @@ export const useAuth = () => {
         
         setToken(null)
         setUserId(null)
+        
+        request('/api/auth/deleteToken', 'DELETE', { jwtToken, id }, {
+            Authorization: `Bearer ${jwtToken}`,
+            User: `Id ${id}`
+        })
 
         localStorage.removeItem(storageName)
     }, [])

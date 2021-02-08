@@ -14,7 +14,6 @@ router.get('/all', auth, async (req, res) => {
     {
         res.status(500).json({ message: 'Внутрення ошибка сервера', devMessage: `${e.message}` })
     }
-
 })
 
 router.post('/create', auth, async (req, res) => {
