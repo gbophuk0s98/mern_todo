@@ -36,7 +36,11 @@ export const useAuth = () => {
 
         const data = JSON.parse(localStorage.getItem(storageName))
 
-        if (data && data.token) login(data.token, data.userId)
+        if (data && data.token){
+            console.log('useEffect')
+            const isExist = request('/api/auth/getToken', 'POST', { token: data.token, userId: data.userId }, {})
+            login(data.token, data.userId)
+        } 
     }, [login])
 
     return { login, logout, token, userId }

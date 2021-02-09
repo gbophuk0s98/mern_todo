@@ -6,7 +6,7 @@ const path = require('path')
 const PORT = process.env.PORT || 8080
 
 app.use(express.json({ extended: true }))
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.png')))
+app.use(favicon(path.join(__dirname, 'public', 'favicon.png')))
 
 app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/todos', require('./routes/todos.routes'))

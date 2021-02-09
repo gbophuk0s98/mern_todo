@@ -70,11 +70,14 @@ router.post(
             if (!isMatch) return res.status(400).json({ message: 'Неверный пароль' })
 
             const secretKey = Date.now().toString()
-            const token = generateToken(user.id, secretKey)
 
-            await new Token({ token, secretKey, owner: user.id }).save()
+            const tokenDB = await Token.findOne({ owner: user.id })
+            if (!tokenDB){
+                tokenDB = generateToken(user.id, secretKey)
+                await new Token({ token, secretKey, owner: user.id }).save()
+            }
 
-            await res.status(201).json({ token: token, userId: user.id, message: 'Вход успешно выполнен' })
+            await res.status(201).json({ token: tokenDB, userId: user.id, message: 'Вход успешно выполнен' })
 
         }
         catch (e)
@@ -82,6 +85,14 @@ router.post(
             res.status(500).json({ message: 'Внутренняя ошибка сервера', devMessage: `${e.message}` })
         }
     })
+
+router.post('/getToken', async (req, res) => {
+
+    const { token, userId } = req.body
+    console.log(req.body)
+    res.status(200).json({ message: 'Токен найден' })
+
+})
 
 router.delete('/deleteToken', async (req, res) => {
     try

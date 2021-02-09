@@ -19,7 +19,7 @@ export const ToDosPage = () => {
     const [countDone, setCountDone] = useState(0)
     const [visibleItems, setVisibleItems] = useState([])
 
-    const { request } = useHttp()
+    const { request, loading } = useHttp()
     const { token, userId } = useContext(AuthContext)
 
 
@@ -142,34 +142,46 @@ export const ToDosPage = () => {
         setCountDone(getLenghtDone())
     }, [setCountDone, getLenghtDone])
 
+    if (loading){
+        return(
+            <div style={{height: 500 + 'px'}} className="container w-50 mh-100">
+                <div className="d-flex align-items-center justify-content-center h-100">
+                    <div style={{ height: 50 + 'px', width: 50 + 'px' }} className="spinner-border text-primary" role="status">
+                        <span className="sr-only">Загрузка...</span>
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
     return(
         <div className="">
-        <div className="container m-auto w-50">
-            <AppHeader 
-                toDo={countToDo} 
-                done={countDone}
-            />
-            <div className="top-panel d-flex">
-                <SearchPanel 
-                    onSearchChange={onSearchChange}
+            <div className="container m-auto w-50">
+                <AppHeader 
+                    toDo={countToDo} 
+                    done={countDone}
                 />
-                <ItemStatusFilter 
-                    filter={filterValue}
-                    onFilterChange={onFilterChange}
+                <div className="top-panel d-flex">
+                    <SearchPanel 
+                        onSearchChange={onSearchChange}
+                    />
+                    <ItemStatusFilter 
+                        filter={filterValue}
+                        onFilterChange={onFilterChange}
+                    />
+                </div>
+                <ToDoList
+                        todos={visibleItems}
+                        onDeleted={deleteHandler}
+                        onToggleDone= {changeDone}
+                        onToggleImportant= {changeImportant}
+                />
+                <AddPanel
+                    changeTodo={onChangeNewTodo}
+                    createTodo={createHandler}
                 />
             </div>
-           <ToDoList
-                todos={visibleItems}
-                onDeleted={deleteHandler}
-                onToggleDone= {changeDone}
-                onToggleImportant= {changeImportant}
-           />
-            <AddPanel
-                changeTodo={onChangeNewTodo}
-                createTodo={createHandler}
-            />
         </div>
-    </div>
     )
+    
 }

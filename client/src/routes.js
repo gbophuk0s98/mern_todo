@@ -9,7 +9,7 @@ export const useRoutes = isAuthenticated => {
     if (isAuthenticated){
         return(
             <Switch>
-                <Route path="/todos" >
+                <Route path="/todos" exact>
                     <Navbar/>
                     <ToDosPage/>
                 </Route>
@@ -20,7 +20,7 @@ export const useRoutes = isAuthenticated => {
 
     return(
         <Switch>
-            <Route path="/login">
+            <Route path="/login" exact>
                 <LoginPage />
             </Route>
             <Route path="/register" exact>
