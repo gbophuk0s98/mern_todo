@@ -4,11 +4,8 @@ import { LoginPage } from './pages/LoginPage'
 import { RegisterPage } from './pages/RegisterPage'
 import { ToDosPage } from './pages/ToDosPage'
 import { Navbar } from './components/navbar/navbar.component'
-import { useHttp } from './hooks/http.hook'
 
 export const useRoutes = isAuthenticated => {
-
-    const { loading } = useHttp()
 
     if (isAuthenticated){
         return(

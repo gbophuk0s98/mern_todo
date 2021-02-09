@@ -143,7 +143,7 @@ export const ToDosPage = () => {
             Authorization: `Bearer ${token}`,
             User: `Id ${userId}`
         })
-        console.log(fetched)
+        fetchedCards()
     }
 
     const createTodoHandler = async () => {
@@ -185,12 +185,15 @@ export const ToDosPage = () => {
 
 
     return(
-        <div className="">
+        <div>
+            <div>
             <button className="btn btn-primary" onClick={createCardHandler}>Добавить карточку </button>
+            </div>
+        <div className="container d-flex align-content-start flex-wrap">
             {
             cards.map(card => {
                 return(
-                    <div key={card._id} className="container m-auto w-75">
+                    <div key={card._id} className="m-auto mw-30">
                         {/* <AppHeader 
                             toDo={countToDo} 
                             done={countDone}
@@ -234,6 +237,7 @@ export const ToDosPage = () => {
                 )
             })
             }
+        </div>
         </div>
     )
     
