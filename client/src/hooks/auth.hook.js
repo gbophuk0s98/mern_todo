@@ -21,25 +21,23 @@ export const useAuth = () => {
 
     const logout = useCallback((jwtToken, id) => {
         
+        request('/api/auth/deleteToken', 'DELETE', { id }, {})
+
         setToken(null)
         setUserId(null)
-        
-        request('/api/auth/deleteToken', 'DELETE', { jwtToken, id }, {
-            Authorization: `Bearer ${jwtToken}`,
-            User: `Id ${id}`
-        })
 
         localStorage.removeItem(storageName)
     }, [])
 
-    useEffect(() => {
+    useEffect(async () => {
 
         const data = JSON.parse(localStorage.getItem(storageName))
 
         if (data && data.token){
-            console.log('useEffect')
-            const isExist = request('/api/auth/getToken', 'POST', { token: data.token, userId: data.userId }, {})
-            login(data.token, data.userId)
+            const isExist = await request('/api/auth/getToken', 'POST', { token: data.token, userId: data.userId }, {})
+            if (isExist.presence){
+                login(data.token, data.userId)
+            }
         } 
     }, [login])
 

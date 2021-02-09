@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useHttp } from '../hooks/http.hook'
 import { AuthContext } from '../context/auth.context'
 import { ParentComponent } from '../components/auth.components/parent.component'
+import { Preloader } from '../components/preloader/preloader'
 
 export const LoginPage = () => {
 
@@ -29,6 +30,8 @@ export const LoginPage = () => {
         }
         catch {}
     }
+
+    if (loading) return <Preloader />
 
     return(
         <div className="form-container">

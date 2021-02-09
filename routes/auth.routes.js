@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken')
 const router = Router()
 
 generateToken = (userId, secretKey) => {
-    return token = jwt.sign(
+    return jwt.sign(
         { userId: userId },
         'gbophuk0s98' + secretKey,
         { expiresIn: '23h' },
@@ -40,6 +40,9 @@ router.post(
             const secretKey = Date.now().toString()
             const token = generateToken(user.id, secretKey)
 
+            const newToken = new Token({ token: token, secretKey: secretKey, owner: user.id })
+            await newToken.save()
+
             await res.status(201).json({ token: token, userId: user.id, message: 'Пользователь создан' })
 
         }
@@ -69,16 +72,19 @@ router.post(
             const isMatch = await bcrypt.compare(password, user.password)
             if (!isMatch) return res.status(400).json({ message: 'Неверный пароль' })
 
-            const secretKey = Date.now().toString()
-
             const tokenDB = await Token.findOne({ owner: user.id })
             if (!tokenDB){
-                tokenDB = generateToken(user.id, secretKey)
-                await new Token({ token, secretKey, owner: user.id }).save()
+                
+                const secretKey = Date.now().toString()
+                const generatedToken = generateToken(user.id, secretKey)
+
+                const newToken = new Token({ token: generatedToken, secretKey, owner: user.id })
+                await newToken.save()
+
+                await res.status(201).json({ token: newToken.token, userId: user.id, message: 'Вход успешно выполнен' })
+            } else {
+                await res.status(201).json({ token: tokenDB.token, userId: user.id, message: 'Вход успешно выполнен' })
             }
-
-            await res.status(201).json({ token: tokenDB, userId: user.id, message: 'Вход успешно выполнен' })
-
         }
         catch (e)
         {
@@ -89,15 +95,19 @@ router.post(
 router.post('/getToken', async (req, res) => {
 
     const { token, userId } = req.body
-    console.log(req.body)
-    res.status(200).json({ message: 'Токен найден' })
-
+    
+    const isExist = await Token.findOne({ token: token })
+    if (isExist) {
+        res.status(200).json({ presence: true })
+    } else {
+        res.status(200).json({ presence: false })
+    }
 })
 
 router.delete('/deleteToken', async (req, res) => {
     try
     {
-        await Token.deleteOne({ token: req.body.jwtToken, owner: req.body.id })
+        await Token.deleteOne({ owner: req.body.id })
         res.status(200).json({ message: 'Успешно удалено!' })
     }
     catch (e)
