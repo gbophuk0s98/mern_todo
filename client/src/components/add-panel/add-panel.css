@@ -1,9 +1,37 @@
+.card-footer{
+    width: auto;
+    /* justify-content: space-between; */
+    align-items: center;
+}
 .search-input {
     width: auto;
     flex-grow: 1;
     margin-right: 3px;
 }
 
+.circle-btn {
+    position: relative;
+    width: 26px;
+    height: 26px;
+    border-radius: 14px;
+}
+
+
 button > span {
+    position: absolute;
+    font-size: 30px;
+    left: 5px;
+    top: -12px;
+    display: block;
+    font-family: Comic Sans MS, Comic Sans, cursive;
+    text-align: center;
+}
+
+.add-input {
+    padding: 3px 0px 3px 15px;
+    max-width: 100%;
+    width: 100%;
+    flex-grow: 1;
+    margin-right: 3px;
     font-family: Comic Sans MS, Comic Sans, cursive;
 }

@@ -22,7 +22,7 @@ export const TodoListItem = ({ text, done, important, onDeleted, onToggleDone, o
 
     return (
         <span className={classes}>
-            <div>
+            <div className="task-text">
             <span
                 className="todo-list-item-label"
                 onClick={onToggleDone}
@@ -31,7 +31,7 @@ export const TodoListItem = ({ text, done, important, onDeleted, onToggleDone, o
             </span>
             </div>
 
-            <div>
+            <div className="task-btn">
             <button 
                 type="button"
                 className="btn btn-outline-success btn-sm"

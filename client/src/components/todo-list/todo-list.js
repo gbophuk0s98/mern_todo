@@ -1,21 +1,22 @@
 import React, { useContext } from 'react'
 import './todo-list.css'
-import {TodoListItem} from '../todo-list-item/todo-list-item'
+import { TodoListItem } from '../todo-list-item/todo-list-item'
 
-export const ToDoList = ({todos, onDeleted, onToggleDone, onToggleImportant}) => {
+export const ToDoList = ({todos, onDeleted, onToggleDone, onToggleImportant, createTodo}) => {
+
+    console.log(todos)
 
     return(
         <ul className="list-group todo-list">
             {
-                todos.map(item => {
-
+                todos.map((item, index) => {
                     return(
-                        <li key={item._id} className="list-group-item bg-dark">
+                        <li key={index} className="list-group-item bg-dark">
                             <TodoListItem 
                                 { ...item }
-                                onDeleted={() => onDeleted(item._id)}
-                                onToggleDone={() => onToggleDone(item.done, item._id)}
-                                onToggleImportant={() => onToggleImportant(item.important, item._id)}
+                                // onDeleted={() => onDeleted(item._id)}
+                                // onToggleDone={() => onToggleDone(item.done, item._id)}
+                                // onToggleImportant={() => onToggleImportant(item.important, item._id)}
                             />
                         </li>
                     )

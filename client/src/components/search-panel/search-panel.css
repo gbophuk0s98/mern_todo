@@ -1,6 +1,7 @@
  .search-input {
     padding: 3px 0px 3px 30px;
-    width: auto;
+    max-width: 100%;
+    width: 100%;
     flex-grow: 1;
     margin-right: 3px;
     font-family: Comic Sans MS, Comic Sans, cursive;
