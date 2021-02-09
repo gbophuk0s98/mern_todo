@@ -186,7 +186,7 @@ export const ToDosPage = () => {
                 /> */}
                 <div className="card" style={{width: 18 + 'rem', marginTop: 50 + 'px', color: 'black'}}>
                     <div className="card-body">
-                        <h5 className="card-title">Название карточки</h5>
+                        <h5 className="card-title">Заголовок</h5>
                         <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     </div>
                     <ul className="list-group list-group-flush">
