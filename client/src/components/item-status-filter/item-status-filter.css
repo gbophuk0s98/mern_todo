@@ -1,5 +1,12 @@
 button > span{
     font-family: Comic Sans MS, Comic Sans, cursive;
-    
-     /* font-size: 25px; */
+}
+
+.btn-danger:focus {
+    box-shadow: none;
+}
+
+.btn:checked,
+.btn:focus {
+    box-shadow: none;
 }

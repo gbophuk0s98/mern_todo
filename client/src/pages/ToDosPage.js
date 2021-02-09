@@ -6,6 +6,7 @@ import { ToDoList } from '../components/todo-list/todo-list'
 import { AddPanel } from '../components/add-panel/add-panel'
 import { useHttp } from '../hooks/http.hook'
 import { AuthContext } from '../context/auth.context'
+import { Preloader } from '../components/preloader/preloader'
 
 export const ToDosPage = () => {
     
@@ -18,6 +19,7 @@ export const ToDosPage = () => {
     const [countToDo, setCountToDo] = useState(0)
     const [countDone, setCountDone] = useState(0)
     const [visibleItems, setVisibleItems] = useState([])
+    const [localLoading, setLocalLoading] = useState(false)
 
     const { request, loading } = useHttp()
     const { token, userId } = useContext(AuthContext)
@@ -50,12 +52,23 @@ export const ToDosPage = () => {
     
 
     const filter = (items, filter) => {
+        setLocalLoading(true)
         switch (filter) {
-            case 'all': return items
-            case 'active': return items.filter(item => !item.done)
-            case 'done': return items.filter(item => item.done)
-            default: return items
+            case 'all':
+                items = items
+                break
+            case 'active': 
+                items = items.filter(item => !item.done)
+                break
+            case 'done':
+                items = items.filter(item => item.done)
+                break
+            default: 
+                items = items
+                break
         }
+        setLocalLoading(false)
+        return items
     }
 
     const onSearchChange = (term) => {
@@ -142,22 +155,13 @@ export const ToDosPage = () => {
         setCountDone(getLenghtDone())
     }, [setCountDone, getLenghtDone])
 
-    if (loading){
-        return(
-            <div style={{height: 500 + 'px'}} className="container w-50 mh-100">
-                <div className="d-flex align-items-center justify-content-center h-100">
-                    <div style={{ height: 50 + 'px', width: 50 + 'px' }} className="spinner-border text-primary" role="status">
-                        <span className="sr-only">Загрузка...</span>
-                    </div>
-                </div>
-            </div>
-        )
-    }
+    if (loading || localLoading) return <Preloader />
+
 
     return(
         <div className="">
-            <div className="container m-auto w-50">
-                <AppHeader 
+            <div className="container m-auto w-75">
+                {/* <AppHeader 
                     toDo={countToDo} 
                     done={countDone}
                 />
@@ -179,7 +183,22 @@ export const ToDosPage = () => {
                 <AddPanel
                     changeTodo={onChangeNewTodo}
                     createTodo={createHandler}
-                />
+                /> */}
+                <div className="card" style={{width: 18 + 'rem', marginTop: 50 + 'px', color: 'black'}}>
+                    <div className="card-body">
+                        <h5 className="card-title">Название карточки</h5>
+                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                    <ul className="list-group list-group-flush">
+                        <li className="list-group-item">Cras justo odio</li>
+                        <li className="list-group-item">Dapibus ac facilisis in</li>
+                        <li className="list-group-item">Vestibulum at eros</li>
+                    </ul>
+                    <div className="card-body">
+                        <a href="#" className="card-link">Card link</a>
+                        <a href="#" className="card-link">Another link</a>
+                    </div>
+                </div>
             </div>
         </div>
     )
