@@ -4,14 +4,13 @@ const Todos = require('../models/Todos')
 const Card = require('../models/Card')
 const auth = require('../middleware/auth.middleware')
 
-router.get('/all', auth, async (req, res) => {
+router.post('/getCardTodo', auth, async (req, res) => {
     try
     {
-        const card = await Card.find({ owner: req.user.userId })
-        const todos = await Todos.find({ owner: req.user.userId })
+        const { cardId } = req.body
+        const todos = await Todos.find({ card: cardId })
         res.status(200).json(todos)
     }
-
     catch (e)
     {
         res.status(500).json({ message: 'Внутренняя ошибка сервера', devMessage: `${e.message}` })
@@ -21,7 +20,7 @@ router.get('/all', auth, async (req, res) => {
 router.get('/allCards', auth, async (req, res) => {
     try
     {
-        const cards = await Card.find({ owner: req.user.userId })        
+        const cards = await Card.find({ owner: req.user.userId })      
         res.status(200).json(cards)
     }
     catch (e)
@@ -33,9 +32,9 @@ router.get('/allCards', auth, async (req, res) => {
 router.post('/createCard', auth, async (req, res) => {
     try
     {
-        const { title, description, tasks } = req.body
+        const { title, category } = req.body
         
-        const card =  new Card({ title, description, tasks, owner: req.user.userId})
+        const card =  new Card({ title, category, owner: req.user.userId})
         await card.save()
 
         res.status(201).json(card)
@@ -46,11 +45,11 @@ router.post('/createCard', auth, async (req, res) => {
     }
 })
 
-router.post('/create', auth, async (req, res) => {
+router.post('/createTodo', auth, async (req, res) => {
     try
     {
-        const { _id, text, done, important } = req.body
-        const todo = new Todos({ text, done, important, card: _id }) 
+        const { idCard , text, done, important } = req.body
+        const todo = new Todos({ text, done, important, card: idCard }) 
         await todo.save()
 
         res.status(201).json({ message: 'Тудушка создана!' })

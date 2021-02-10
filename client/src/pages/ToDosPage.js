@@ -134,26 +134,13 @@ export const ToDosPage = () => {
     // }
 
     const createCardHandler = async () => {
-        const title = 'ЧЧЧЧ'
-        const description = 'ЦЦЦЦЦЦ'
-        const text = 'qwe'
-        const tasks = [{done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'heellooodasodas'}]
-        const fetched = await request('/api/todos/createCard', 'POST', { title, description, tasks }, {
+        const title = 'Заголовок'
+        const category = 'Категория'
+        const fetched = await request('/api/todos/createCard', 'POST', { title, category }, {
             Authorization: `Bearer ${token}`,
             User: `Id ${userId}`
         })
         fetchedCards()
-    }
-
-    const createTodoHandler = async () => {
-        const _id = '6022569df952eb2be841f7f2'
-        const important = false
-        const done = false
-        const text = 'текст карточки'
-        const fetched = await request('/api/todos/create', 'POST', { _id, important, done, text }, {
-            Authorization: `Bearer ${token}`,
-            User: `Id ${userId}`
-        })
     }
 
     const fetchedCards = useCallback(async () => {
@@ -220,10 +207,10 @@ export const ToDosPage = () => {
                         <div className="card" style={{width: 18 + 'rem', marginTop: 50 + 'px', color: 'black'}}>
                             <div className="card-body">
                                 <h5 className="card-title">{card.title}</h5>
-                                <p className="card-text">{card.description}</p>
+                                <p className="card-text">{card.category}</p>
                             </div>
                             <ToDoList
-                                todos={card.tasks}
+                                id={card._id}
                                 // onDeleted={deleteHandler}
                                 // onToggleDone= {changeDone}
                                 // onToggleImportant= {changeImportant}

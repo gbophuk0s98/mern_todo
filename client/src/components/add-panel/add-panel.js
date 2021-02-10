@@ -1,24 +1,30 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { AuthContext } from '../../context/auth.context'
+import { useHttp } from '../../hooks/http.hook'
 import './add-panel.css'
 
 export const AddPanel = ({ id }) => {
 
     const [cardId, setCardId] = useState(id)
     const [note, setNote] = useState({
-        text: '', important: false, done: false,
+        idCard: id, text: '', important: false, done: false,
     })
+    const auth = useContext(AuthContext)
+    const { request, loading } = useHttp()
 
     const onChangeNewTodo = event => {
         setNote({
             ...note,
             [event.target.name]: event.target.value
         })
-        console.log(note)
     }
 
-    const addTodo = () => {
-        // console.log(cardId)
-        console.log(cardId)
+    const addTodo = async () => {
+        await request('/api/todos/createTodo', 'POST', { ...note }, {
+            Authorization: `Bearer ${auth.token}`,
+            User: `Id ${auth.userId}`
+        })
+        console.log(note)
     } 
 
     const clearInput = () => {
@@ -39,7 +45,10 @@ export const AddPanel = ({ id }) => {
                     type="button"
                     id={cardId}
                     className="btn btn-primary circle-btn"
-                    onClick={addTodo}
+                    onClick={() => {
+                        addTodo()
+                        clearInput()
+                    }}
                 >
                     <span>+</span>
                 </button>
