@@ -15,7 +15,7 @@ export const LoginPage = () => {
         password: '',
     })
 
-    const changeForm = (event) => {
+    const changeForm = event => {
         setForm({
             ...form, 
             [event.target.name]: event.target.value

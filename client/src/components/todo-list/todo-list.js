@@ -4,8 +4,6 @@ import { TodoListItem } from '../todo-list-item/todo-list-item'
 
 export const ToDoList = ({todos, onDeleted, onToggleDone, onToggleImportant, createTodo}) => {
 
-    console.log(todos)
-
     return(
         <ul className="list-group todo-list">
             {
@@ -15,7 +13,7 @@ export const ToDoList = ({todos, onDeleted, onToggleDone, onToggleImportant, cre
                             <TodoListItem 
                                 { ...item }
                                 // onDeleted={() => onDeleted(item._id)}
-                                // onToggleDone={() => onToggleDone(item.done, item._id)}
+                                // onToggleDone={() => onToggleDone(item.done, index)}
                                 // onToggleImportant={() => onToggleImportant(item.important, item._id)}
                             />
                         </li>

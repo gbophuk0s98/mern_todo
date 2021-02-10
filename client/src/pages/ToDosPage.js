@@ -115,12 +115,14 @@ export const ToDosPage = () => {
         
     // }
 
-    // const changeDone = async (done, _id) => {
-    //     await request('/api/todos/updateDone', 'PUT', {done, _id}, {
+    // const changeDone = async (done, id) => {
+    //     await request('/api/todos/updateDone', 'PUT', {done, id}, {
     //         Authorization: `Bearer ${token}`,
     //         User: `Id ${userId}`
     //     })
-    //     fetchedTodos()
+    //     fetchedCards()
+    //     // console.log(id)
+    //     // console.log('changeDone')
     // }
 
     // const changeImportant = async (important, _id) => {
@@ -130,15 +132,12 @@ export const ToDosPage = () => {
     //     })
     //     fetchedTodos()
     // }
-    const addTodo = () => {
-
-    }
 
     const createCardHandler = async () => {
         const title = 'ЧЧЧЧ'
         const description = 'ЦЦЦЦЦЦ'
         const text = 'qwe'
-        const tasks = [{done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'heellooodasodas'}]
+        const tasks = [{done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'ascasdchkhasdkjasdhkjas'}, {done: false, important: false, text: 'heellooodasodas'}]
         const fetched = await request('/api/todos/createCard', 'POST', { title, description, tasks }, {
             Authorization: `Bearer ${token}`,
             User: `Id ${userId}`
@@ -189,11 +188,11 @@ export const ToDosPage = () => {
             <div>
             <button className="btn btn-primary" onClick={createCardHandler}>Добавить карточку </button>
             </div>
-        <div className="container d-flex align-content-start flex-wrap">
+        <div className="container d-flex align-self-start justify-content-between flex-wrap">
             {
             cards.map(card => {
                 return(
-                    <div key={card._id} className="m-auto mw-30">
+                    <div key={card._id} className="w-30">
                         {/* <AppHeader 
                             toDo={countToDo} 
                             done={countDone}
@@ -230,7 +229,9 @@ export const ToDosPage = () => {
                                 // onToggleImportant= {changeImportant}
                             />
                             <div className="w-100">
-                                <AddPanel onAddedToDo={addTodo(card._id)}/>
+                                <AddPanel 
+                                    id={card._id}
+                                />
                             </div>
                         </div>
                     </div>

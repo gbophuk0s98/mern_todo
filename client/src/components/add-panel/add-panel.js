@@ -1,10 +1,28 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './add-panel.css'
 
-export const AddPanel = ({ changeTodo, addTodo}) => {
+export const AddPanel = ({ id }) => {
+
+    const [cardId, setCardId] = useState(id)
+    const [note, setNote] = useState({
+        text: '', important: false, done: false,
+    })
+
+    const onChangeNewTodo = event => {
+        setNote({
+            ...note,
+            [event.target.name]: event.target.value
+        })
+        console.log(note)
+    }
+
+    const addTodo = () => {
+        // console.log(cardId)
+        console.log(cardId)
+    } 
 
     const clearInput = () => {
-        document.getElementById("textInput").value = ''
+        document.getElementById(id).value = ''
     }
 
     return(
@@ -14,13 +32,12 @@ export const AddPanel = ({ changeTodo, addTodo}) => {
                     name="text"
                     className="add-input"
                     placeholder="Введите задачу..."
-                    id="textInput"
-                    onChange={(e) => {
-                        changeTodo(e.target.name, e.target.value)
-                    }}
+                    id={cardId}
+                    onChange={onChangeNewTodo}
                 />
                 <button 
                     type="button"
+                    id={cardId}
                     className="btn btn-primary circle-btn"
                     onClick={addTodo}
                 >
